@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="lib/echarts.min.js"></script>
+</head>
+
+<body>
+  <div style="height:800px;border: 1px solid red;"></div>
+  <script>
+    //1. ECharts最基本的代码结构
+    //2. x轴数据:['张三', '李四', '王五', '闰土', '小明', '茅台', '二妞', '大强']
+    //3. y轴数据:[88, 92, 63, 77, 94, 80, 72, 86]
+    //4. 将type的值设置为bar
+    var mCharts = echarts.init(document.querySelector("div")) // 初始化echarts实例对象
+    var xDataArr = ['张三', '李四', '王五', '闰土', '小明', '茅台', '二妞', '大强'] // 准备x轴数据
+    var yDataArr = [88, 92, 63, 77, 94, 80, 72, 86] // 为x轴每一个元素指明数据
+    var option = {
+      color: ['#2f89cf'], //修改柱的颜色
+      tooltip: { // 工具提示
+          // trigger: 'item' 工具提示的类型 item代表的是每个柱本身, axis代表的是坐标轴
+          trigger: 'axis',
+          triggerOn: 'click', // 触发时机, click代表点击, mouseOver代表鼠标移过
+          axisPointer: {
+            type: 'shadow' //shadow line 显示的是阴影还是轴线
+          }
+        },
+      grid: { // 坐标轴容器
+        show: true, // 是否可见
+        // borderWidth: 10, // 表格边框的宽度
+        // borderColor: 'red', // 边框的颜色
+        left: '20%', // 边框的位置
+        right: '25%' ,
+        top: 120,
+        // width: 500, // 边框的大小
+        // height: 600,
+        containLabel: true // 距离是包含坐标轴上的文字
+      },
+      xAxis: {
+        type: 'value',
+        //修改轴刻度标签相关样式 yx轴都可以
+        axisLabel: {
+          color: 'red',
+          fontSize: '12'
+        },
+        //坐标轴配置
+        axisLine: {
+          show: false,//不显示x坐标轴 yx轴都可以
+          lineStyle: {
+            color: 'red',
+            widthL: 2
+          }
+        },
+        //设置轴分割线的颜色
+        splitLine: {
+          lineStyle: {
+            color: 'pink'
+          }
+        }
+      },
+      yAxis: {
+        type: 'category',
+        data: xDataArr
+      },
+      series: [
+        {
+          name: '语文',
+          type: 'bar',
+          markPoint: { // 标记点
+            data: [
+              {
+                type: 'max', name: '最大值'
+              },{
+                type: 'min', name: '最小值'
+              }
+            ]
+          },
+          markLine: { // 标记线
+            data: [
+              {
+                type: 'average', name: '平均值'
+              }
+            ]
+          },
+          label: { // 柱状图上的文字设置
+            show: true, // 是否显示
+            rotate: 60, // 旋转角度
+            position: 'top' // 显示位置
+          },
+          barWidth: '30%', // 柱的宽度
+          data: yDataArr,
+          itemStyle: {  //设置柱的样式
+            barBorderRadius: 5
+          }
+        }
+      ]
+    }
+    mCharts.setOption(option)
+
+    // 跟随屏幕自适应
+    window.addEventListener('resize', function() {
+      mCharts.resize(); // 如果设置了图表大小就会无法自适应
+    })
+    
+    // window.onresize = function () {
+    //   mCharts.resize()  // 如果设置了图表大小就会无法自适应
+    // }
+  </script>
+</body>
+<script src="./lib/rem自适应大小/flexible.js"></script>
+
+</html>

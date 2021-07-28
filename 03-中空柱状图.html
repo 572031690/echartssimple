@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/echarts.min.js"></script>
+</head>
+
+<body>
+    <div style="height:800px;border: 1px solid red;"></div>
+    <script>
+        //1. ECharts最基本的代码结构
+        //2. x轴数据:['张三', '李四', '王五', '闰土', '小明', '茅台', '二妞', '大强']
+        //3. y轴数据:[88, 92, 63, 77, 94, 80, 72, 86]
+        //4. 将type的值设置为bar
+        var myColor = ['#1089E7','#f57474','#56D0e3','#f8b448','#8b78f6']
+        var mCharts = echarts.init(document.querySelector("div")) // 初始化echarts实例对象
+        var option = {
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                },
+                //设置显示的文字内容
+                formatter: function (args) {
+                    // console.log(args);
+                    return args[0].name + ' ' + args[0].value + '%'
+                }
+            },
+
+            grid: {
+                left: '10%',
+                top: '10%',
+                bottom: '10%',
+                containLabel: true
+            },
+            //不显示x轴
+            xAxis: {
+                show: false
+            },
+            yAxis: [
+            {
+                type: 'category',
+                data: ['巴西', '印尼', '美国', '印度', '中国'], //数据显示的时候会反过来
+                inverse: true, //是否不是反转数据 改成true就可以让原来反转的数据正过来了
+                //不显示y轴的线
+                axisLine: {
+                    show: false
+                },
+                // 不显示y轴的小刻度
+                axisTick: {
+                    show: false
+                },
+                //把刻度标签里面的文字颜色设置为黑色
+                axixLabel: {
+                    color: 'black'
+                }
+            },
+            {
+                type: 'category',
+                data: [702, 350, 610, 793, 664],//数据显示的时候会反过来
+                inverse: true, //是否不是反转数据 改成true就可以让原来反转的数据正过来了
+                //不显示y轴的线
+                axisLine: {
+                    show: false
+                },
+                // 不显示y轴的刻度
+                axisTick: {
+                    show: false
+                },
+                //把刻度标签里面的文字颜色设置为黑色
+                axixLabel: {
+                    textStyle: {
+                        color: 'black',
+                        fontSize: 12
+                    }
+                }
+            }
+            ],
+            series: [
+                {
+                    yAxisIndex: 0,//设置两个柱子重叠在一起的前后 
+                    name: '条',
+                    type: 'bar',
+                    data: [70, 34, 60, 78, 69],
+                    //设置第一类柱子的样式
+                    itemStyle: {
+                        barBorderRadius: 20,
+                        color: function(params) {
+                            return myColor[params.dataIndex] //dataIndex当前柱子的索引号
+                        }
+                    },
+                    //柱子的间距
+                    barCategoryGap: 50,
+                    // 柱子的宽度
+                    barWidth: 10,
+                    //显示柱子内的文字
+                    label: {
+                        show: true,
+                        position: 'inside', //显示的位置在柱子的内部
+                        formatter: "{c}%", //设置显示的文字的样式 c代表的就是他的data数据值    a代表系列名name，b代表数据名
+                    }
+                },
+                {
+                    yAxisIndex: 1,//设置两个柱子重叠在一起的前后 
+                    name: '框',
+                    barWidth: 15,
+                    barCategoryGap: 50,
+                    type: 'bar',
+                    data: [100, 100, 100, 100, 100],
+                    itemStyle: {
+                        barBorderRadius: 15,
+                        borderWidth: 3,
+                        borderColor: "#00c1de",
+                        color: 'none', //看不到柱子 取而代之的是上面的border
+
+                    },
+                }
+            ]
+        };
+        mCharts.setOption(option)
+
+        // 跟随屏幕自适应
+        window.addEventListener('resize', function () {
+            mCharts.resize(); // 如果设置了图表大小就会无法自适应
+        })
+
+    // window.onresize = function () {
+    //   mCharts.resize()  // 如果设置了图表大小就会无法自适应
+    // }
+    </script>
+</body>
+<script src="./lib/rem自适应大小/flexible.js"></script>
+
+</html>
