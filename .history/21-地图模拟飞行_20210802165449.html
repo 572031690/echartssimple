@@ -182,7 +182,6 @@
                         });
                     }
                 }
-                console.log(res);
                 return res;
             };
 
@@ -193,7 +192,6 @@
                 ["西宁", XNData],
                 ["银川", YCData]
             ].forEach(function (item, i) {
-              console.log(item[1], 'dddddddd');
                 series.push(
                     {
                         name: item[0] + " Top3",
@@ -265,8 +263,6 @@
                             }
                         },
                         data: item[1].map(function (dataItem) {
-                          console.log('name:' + dataItem[1].name + ' value:' + geoCoordMap[dataItem[1].name].concat([dataItem[1].value]));
-
                             return {
                                 name: dataItem[1].name,
                                 value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])

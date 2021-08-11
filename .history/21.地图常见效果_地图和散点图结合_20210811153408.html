@@ -61,19 +61,6 @@
         value: [120.213042, 29.86119]
       }
     ]
-    var labelFormatter = [
-      {name: '杭州', matter: '公司总部：杭州钢材科技公司'},
-      {name: '拉萨', matter: '钢材公司1'},
-      {name: '广州', matter: '钢材公司2'},
-      {name: '西安', matter: '钢材公司3'}
-
-    ]
-
-    var lineSc = [
-      {coords:[[91.1865, 30.1465],[120.213042, 29.86119]],fromName:"拉萨",toName:"杭州",value:100},
-      {coords:[[113.5107, 23.2196],[120.213042, 29.86119]],fromName:"广州",toName:"杭州",value:100},
-      {coords:[[109.1162, 34.2004],[120.213042, 29.86119]],fromName:"西安",toName:"杭州",value:100}
-    ]
     var planePath =
                 "path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z";
     var mCharts = echarts.init(document.querySelector("div"))
@@ -111,7 +98,7 @@
           }
         },
         series: [
-          { // 地图数据
+          {
             data: airData,
             geoIndex: 0, // 将空气质量的数据和第0个geo配置关联在一起
             type: 'map',
@@ -129,61 +116,102 @@
               }
             }
           },
-          { // 动态红线
-            name: " 杭州 Top3",
-            type: "lines",
-            zlevel: 1,
-            effect: {
-              show: true,
-              period: 4, // 动画的快慢
-              trailLength: 0.7, // 红线的宽度
-              color: "red", //arrow箭头的颜色
-              symbolSize: 3 // 红线的宽度
-            },
-            lineStyle: {
-              color: '#46bee9',
-              width: 0,
-              curveness: 0.2 // 弯曲度
-            },
-            data:lineSc,
-            
-          },
-          { // 箭头线
-            name: " 杭州 Top3",
-            type: "lines",
-            zlevel: 2,
-            symbol: ["none", "arrow"],
-            symbolSize: 10,
-            effect: {
-              show: true,
-              period: 4,
-              trailLength: 0,
-              symbol: planePath,
-              symbolSize: 15
-            },
-            lineStyle: {
-              normal: {
-                color: '#46bee9',
-                width: 1,
-                opacity: 0.6,
-                curveness: 0.2
-              }
-            },
-            data: lineSc,
-            tooltip: {
+          {
+                        name: " 杭州 Top3",
+                        type: "lines",
+                        zlevel: 1,
+                        effect: {
+                            show: true,
+                            period: 4, // 动画的快慢
+                            trailLength: 0.7, // 红线的宽度
+                            color: "red", //arrow箭头的颜色
+                            symbolSize: 3 // 红线的宽度
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: 'black',
+                                width: 0,
+                                curveness: 0.2 // 弯曲度
+                            }
+                        },
+                        data: [{coords:[[91.1865, 30.1465],[120.213042, 29.86119]],fromName:"拉萨",toName:"杭州",value:100},
+                        {coords:[[113.5107, 23.2196],[120.213042, 29.86119]],fromName:"广州",toName:"杭州",value:100},
+                        {coords:[[109.1162, 34.2004],[120.213042, 29.86119]],fromName:"拉萨",toName:"杭州",value:100}
+                      ],
+                      tooltip: {
               textStyle: {
                 fontSize:10,
               },
               // 利用formatter来自定义tooltip展示的数据
               formatter: function (params,ticket,callback) {
                 console.log(params);
-                  return params.data.fromName+'采购：<br/> 木材：'+ params.data.value + '万吨'
+                return '公司总部：杭州钢材科技公司'
               }
-            }                        
-          },                    
-          { // 散点数据
+            }
+                    },
+                    {
+                        name: " 杭州 Top3",
+                        type: "lines",
+                        zlevel: 2,
+                        symbol: ["none", "arrow"],
+                        symbolSize: 10,
+                        effect: {
+                            show: true,
+                            period: 4,
+                            trailLength: 0,
+                            symbol: planePath,
+                            symbolSize: 15
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: 'black',
+                                width: 1,
+                                opacity: 0.6,
+                                curveness: 0.2
+                            }
+                        },
+                        data: [{coords:[[91.1865, 30.1465],[120.213042, 29.86119]],fromName:"拉萨",toName:"杭州",value:100},
+                        {coords:[[113.5107, 23.2196],[120.213042, 29.86119]],fromName:"广州",toName:"杭州",value:100},
+                        {coords:[[109.1162, 34.2004],[120.213042, 29.86119]],fromName:"拉萨",toName:"杭州",value:100}
+                      ]
+                    },
+                    // {
+                    //     name: " 杭州 Top3",
+                    //     type: "effectScatter",
+                    //     coordinateSystem: "geo",
+                    //     zlevel: 2,
+                    //     rippleEffect: {
+                    //         brushType: "stroke"
+                    //     },
+                    //     label: {
+                    //         normal: {
+                    //             show: true,
+                    //             position: "right",
+                    //             formatter: "{b}"
+                    //         }
+                    //     },
+                    //     symbolSize: function (val) {
+                    //         return val[2] / 8;
+                    //     },
+                    //     itemStyle: {
+                    //         normal: {
+                    //             color: '#a6c84c'
+                    //         },
+                    //         emphasis: {
+                    //             areaColor: "#2B91B7"
+                    //         }
+                    //     },
+                    //     data: scatterData
+                    //     // item[1].map(function (dataItem) {
+                    //     //     return {
+                    //     //         name: dataItem[1].name,
+                    //     //         value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+                    //     //     };
+                    //     // })
+                    // }
+          {
             name:'杭州',
-            data: [[120.213042, 29.86119],[91.1865, 30.1465],[113.5107, 23.2196],[109.1162, 34.2004]], // 配置散点的坐标数据
+            data: scatterData, // 配置散点的坐标数据
             type: 'effectScatter',
             coordinateSystem: 'geo', // 指明散点使用的坐标系统  geo的坐标系统
             rippleEffect: {
@@ -194,14 +222,12 @@
               normal: {
                 show: true,
                 position: "right",
-                formatter: function (params,ticket,callback) {
-                  return labelFormatter[params.dataIndex].name
-                }
+                formatter: "杭州"
               }
             },
             itemStyle: {
               normal: {
-                color: '#46bee9'
+                color: 'black'
               },
               emphasis: {
                 areaColor: "#2B91B7"
@@ -213,15 +239,14 @@
               },
               // 利用formatter来自定义tooltip展示的数据
               formatter: function (params,ticket,callback) {
-                return labelFormatter[params.dataIndex].matter
+                return '公司总部：杭州钢材科技公司'
               }
-              
             }
           }
         ],
-        visualMap: { // 渐变分层显示
-          // type: 'continuous',   // 连续渐变
-          type: 'piecewise',  // 分层
+        visualMap: {
+          // type: 'continuous',  
+          type: 'piecewise', 
           min: 0,
           max: 300,
           text: ['高', '低'],//两端的文本，如 ['High', 'Low']
@@ -233,7 +258,7 @@
             borderWidth: 1,
           },
           textStyle: {//设置文字颜色（Demo左下组件）
-            color: 'white',
+            color: 'black',
             fontSize:8
           },
           // inRange: {
