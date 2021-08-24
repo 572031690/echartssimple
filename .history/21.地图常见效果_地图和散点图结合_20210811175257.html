@@ -23,7 +23,7 @@
       { name: '北京', value: 39.92,count: 35 },
       { name: '天津', value: 39.13,count: 35 },
       { name: '上海', value: 31.22,count: 35 },
-      { name: '重庆', value: 0,count: 35 },
+      { name: '重庆', value: 66,count: 35 },
       { name: '河北', value: 147,count: 35 },
       { name: '河南', value: 113,count: 35 },
       { name: '云南', value: 25.04,count: 35 },
@@ -33,34 +33,34 @@
       { name: '安徽', value: 117,count: 35 },
       { name: '山东', value: 92,count: 35 },
       { name: '新疆', value: 84,count: 35 },
-      { name: '江苏', value: 0,count: 35 },
-      { name: '浙江', value:0,count: 35 },
+      { name: '江苏', value: 67,count: 35 },
+      { name: '浙江', value: 84,count: 35 },
       { name: '江西', value: 96,count: 35 },
       { name: '湖北', value: 273,count: 35 },
       { name: '广西', value: 0,count: 35 },
       { name: '甘肃', value: 0,count: 35 },
       { name: '山西', value: 39,count: 35 },
-      { name: '内蒙古', value: 0,count: 35 },
+      { name: '内蒙古', value: 58,count: 35 },
       { name: '陕西', value: 61,count: 35 },
       { name: '吉林', value: 51,count: 35 },
       { name: '福建', value: 29,count: 35 },
       { name: '贵州', value: 71,count: 35 },
       { name: '广东', value: 38,count: 35 },
       { name: '青海', value: 57,count: 35 },
-      { name: '西藏', value: 0 ,count: 35},
+      { name: '西藏', value: 24 ,count: 35},
       { name: '四川', value: 58,count: 35 },
       { name: '宁夏', value: 0 ,count: 35},
       { name: '海南', value: 54,count: 35 },
       { name: '台湾', value: 88,count: 35 },
       { name: '香港', value: 66,count: 35 },
       { name: '澳门', value: 77,count: 35 },
-      { name: '南海诸岛', value: 0 ,count: 35}
+      { name: '南海诸岛', value: 55 ,count: 35}
     ]
-    // var scatterData = [
-    //   {
-    //     value: [120.213042, 29.86119]
-    //   }
-    // ]
+    var scatterData = [
+      {
+        value: [120.213042, 29.86119]
+      }
+    ]
     var labelFormatter = [
       {name: '杭州', matter: '公司总部：杭州钢材科技公司'},
       {name: '拉萨', matter: '钢材公司1'},
@@ -141,7 +141,7 @@
               symbolSize: 3 // 红线的宽度
             },
             lineStyle: {
-              // color: 'red',
+              color: '#46bee9',
               width: 0,
               curveness: 0.2 // 弯曲度
             },
@@ -153,25 +153,27 @@
             type: "lines",
             zlevel: 2,
             symbol: ["none", "arrow"],
-            symbolSize: 10, // 设置箭头的大小
+            symbolSize: 10, /
             effect: {
               show: true,
               period: 4,
-              trailLength: 0,// 红线的宽度 设置为零只显示飞机
+              trailLength: 0,
               symbol: planePath,
-              symbolSize: 18
+              symbolSize: 15
             },
             lineStyle: {
               normal: {
-                // color: 'black',
-                width: 2,
+                color: '#46bee9',
+                width: 1,
                 opacity: 0.6,
                 curveness: 0.2
-              },
-               
+              }
             },
             data: lineSc,
             tooltip: {
+              textStyle: {
+                fontSize:10,
+              },
               // 利用formatter来自定义tooltip展示的数据
               formatter: function (params,ticket,callback) {
                 console.log(params);
@@ -197,14 +199,14 @@
                 }
               }
             },
-            // itemStyle: {
-            //   normal: {
-            //     color: '#46bee9'
-            //   },
-            //   emphasis: {
-            //     areaColor: "#2B91B7"
-            //   }
-            // },
+            itemStyle: {
+              normal: {
+                color: '#46bee9'
+              },
+              emphasis: {
+                areaColor: "#2B91B7"
+              }
+            },
             tooltip: {
               textStyle: {
                 fontSize:10,
@@ -226,10 +228,10 @@
           showLabel:true,           //是否显示每项的文本标签
           orient:"horizontal",     //图例排列方向 水平horizontal 垂直vertical
           left:"center", 
-          // indicatorStyle: {
-          //   borderColor:'red',
-          //   borderWidth: 1,
-          // },
+          indicatorStyle: {
+            borderColor:'red',
+            borderWidth: 1,
+          },
           textStyle: {//设置文字颜色（Demo左下组件）
             color: 'white',
             fontSize:12

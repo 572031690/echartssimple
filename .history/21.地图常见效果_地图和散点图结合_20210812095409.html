@@ -56,11 +56,11 @@
       { name: '澳门', value: 77,count: 35 },
       { name: '南海诸岛', value: 0 ,count: 35}
     ]
-    // var scatterData = [
-    //   {
-    //     value: [120.213042, 29.86119]
-    //   }
-    // ]
+    var scatterData = [
+      {
+        value: [120.213042, 29.86119]
+      }
+    ]
     var labelFormatter = [
       {name: '杭州', matter: '公司总部：杭州钢材科技公司'},
       {name: '拉萨', matter: '钢材公司1'},
@@ -88,7 +88,7 @@
         geo: {
           type: 'map',
           map: 'chinaMap', // chinaMap需要和registerMap中的第一个参数保持一致
-          roam: true, // 设置允许缩放以及拖动的效果
+          // roam: true, // 设置允许缩放以及拖动的效果
           label: {
             show: true, // 展示标签
             textStyle: {
