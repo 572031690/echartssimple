@@ -1,0 +1,164 @@
+
+<html>
+
+    <head>
+        <script src="https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js"></script>
+        <script src="/lib/echarts.new.min.js"></script>
+        <script src="http://echarts.baidu.com/resource/echarts-gl-latest/dist/echarts-gl.min.js"></script>
+    </head>
+    
+    <body style="margin: 0; padding: 0;">
+        <div id="map" style="width: 100vw; height: 100vh"></div>
+    </body>
+    
+    <script type="text/javascript">
+        async function initialize() {
+            // let jsonData = '请求的数据'
+            // var szRoad=jsonData;
+            var busLines = [];
+            var data = [
+                {
+                    
+                },
+                {
+                    
+                },
+                {
+                    
+                }
+            ];
+            // var data = szRoad.data;
+            var hStep = 300 / (data.length - 1);
+            var i = 0;
+            for (var x in data) {
+                // var line = data[x];
+                // var pointString = line.ROAD_LINE;
+                // var pointArr = pointString.split(';');
+                // var lnglats = [];
+                // for (var j in pointArr) {
+                //     lnglats.push(pointArr[j].split(','))
+                // }
+                const lnglatsArray = [
+                    [
+                        [121.252635, 28.639169],
+                        [121.202835, 28.639169],
+                        [121.202835, 28.659169],
+                        [121.100635, 28.659169]
+                    ],
+                    [
+                        [121.352635, 28.685169],
+                        [121.252835, 28.685169],
+                        [121.252835, 28.659169],
+                    ],
+                    [
+                        [121.242835, 28.639169],
+                        [121.242835, 28.685169],
+                        [121.252835, 28.685169]
+                    ]
+
+                ]
+                lnglatsArray.forEach((item) => {
+                    busLines.push({
+                        // coords: lnglats,
+                        coords: item,
+                        lineStyle: {
+                            normal: {
+                                color: echarts.color.modifyHSL('#5A94DF', Math.round(hStep * x))
+                            }
+                        }
+                    })
+                })
+                
+            }
+    
+            option = {
+                backgroundColor: '#404a59',
+                mapbox: {
+                    center: [121.252635, 28.639169],
+                    zoom: 14,
+                    altitudeScale: 10000,
+                    style: {
+                        'version': 8,
+                        'sources': {
+                            'raster-tiles': {
+                                'type': 'raster',
+                                'tiles': [
+                                    'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}'
+                                ],
+                                'tileSize': 256
+                            }
+                        },
+                        'layers': [
+                            {
+                                'id': 'simple-tiles',
+                                'type': 'raster',
+                                'source': 'raster-tiles',
+                                'minzoom': 0,
+                                'maxzoom': 22
+                            }
+                        ]
+                    },
+                    postEffect: {
+                        enable: true,
+                        FXAA: {
+                            enable: true
+                        }
+                    },
+                    light: {
+                        main: {
+                            intensity: 1,
+                            shadow: true,
+                            shadowQuality: 'high'
+                        },
+                        ambient: {
+                            intensity: 0
+                        },
+                        ambientCubemap: {
+                            // texture: '/asset/get/s/data-1491838644249-ry33I7YTe.hdr',
+                            // texture: '/asset/get/s/Milkyway_Light.hdr',
+                            exposure: 1,
+                            diffuseIntensity: 0.5,
+                            specularIntensity: 2
+                        }
+                    }
+                },
+                series: [{
+                    type: 'lines3D',
+                    coordinateSystem: 'mapbox',
+                    effect: {
+                        show: true,
+                        constantSpeed: 12, // 速度
+                        trailWidth: 2,
+                        trailLength: 6.4, // 光影的范围
+                        trailOpacity: 1,
+                        spotIntensity: 12 // 光影的大小
+                    },
+                    blendMode: 'lighter',
+                    polyline: true,
+                    lineStyle: {
+                        width: 0.1,
+                        color: 'rgb(200, 40, 0)',
+                        opacity: 0
+                    },
+                    data: {
+                        count: function () {
+                            return busLines.length;
+                        },
+                        getItem: function (idx) {
+                            return busLines[idx]
+                        }
+                    }
+                }]
+            };
+       
+            var myChart = echarts.init(document.getElementById('map'));
+            myChart.setOption(option);
+    
+        }
+        initialize();
+    
+    
+    
+    </script>
+    
+    </html>
